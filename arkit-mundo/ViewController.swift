@@ -23,7 +23,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/sistemaSolar.scn")!
+        
+        
+        if let planetaTierra = scene.rootNode.childNode(withName: "planetaTierra", recursively: true) {
+            let rotacion = SCNAction.repeatForever(
+                SCNAction.rotateBy(x: 0, y: CGFloat(2 * Double.pi), z: 0, duration: 30)
+            )
+            planetaTierra.runAction(rotacion)
+        }
+    
+        if let planetaTierra = scene.rootNode.childNode(withName: "planetaTierra", recursively: true),
+           let luna = planetaTierra.childNode(withName: "luna", recursively: true) {
+            
+            // Rotación propia de la luna (sobre su eje Y)
+            let rotacionLuna = SCNAction.repeatForever(
+                SCNAction.rotateBy(x: 0, y: CGFloat(2 * Double.pi), z: 0, duration: 20)
+            )
+            luna.runAction(rotacionLuna)
+        }
+
+        
         
         // Set the scene to the view
         sceneView.scene = scene
